@@ -1,5 +1,7 @@
 // import Link from "next/link";
 
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-[#424242] text-white">
@@ -10,26 +12,31 @@ export default function Footer() {
             <p>Email: dnhddscst@gmail.com</p>
             <p>Phone: 0260-2642043</p>
           </div>
-          {/* <div>
+          <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul>
               <li>
-                <Link href="#" className="hover:underline">
+                <Link href="/privacy_policy" className="hover:underline">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:underline">
+                <Link href="/tandc" className="hover:underline">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:underline">
-                  Accessibility
+                <Link href="/refund_policy" className="hover:underline">
+                  Refund Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/delete_account" className="hover:underline">
+                  Delete Account
                 </Link>
               </li>
             </ul>
-          </div> */}
+          </div>
           <div>
             <h3 className="text-lg font-semibold mb-4">Address</h3>
             <div>
