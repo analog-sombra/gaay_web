@@ -1,6 +1,6 @@
 export default function Info() {
   return (
-    <section id="about" className="mt-6 w-4/6 mx-auto">
+    <section id="about" className="mt-6 p-4 md:p-0 md:w-4/6 mx-auto">
       <div className="container mx-auto px-4 bg-[#f8f8ff] p-3 rounded-lg">
         <h2 className="text-3xl font-medium text-center">
           Our aim is your financial development

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <section id="about" className="w-4/6 mx-auto mt-6">
+    <section id="about" className="p-4 md:p-0 md:w-4/6 mx-auto mt-6">
       <div className="container mx-auto">
         <div className="bg-[#f8f8ff] p-3 rounded-md">
           <h2 className="text-3xl font-medium text-center">Key Features</h2>
@@ -81,29 +81,19 @@ export default function About() {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-5">
-        <div className="relative col-span-2 h-80">
+      <div className="grid grid-col-1 md:grid-cols-5">
+        <div className="relative w-full md:col-span-2 h-80">
           <Image src="/4.jpg" alt="About" fill={true} />
         </div>
-        <div className="relative col-span-3 h-80">
+        <div className="relative w-full md:col-span-3 h-80">
           <Image src="/5.jpg" alt="About" fill={true} />
         </div>
       </div>
-      <div className="grid grid-cols-7">
-        {/* <div className="relative col-span-1 h-80">
-          <h3 className="text-sm font-medium text-center">Types of Loan</h3>
-          <ol>
-            <li>GAAY(Gir Adash Ajeevika Yojana)</li>
-            <li>Transport Sector</li>
-            <li>Shops</li>
-            <li>Service Sector</li>
-            <li>Mushroom Farming</li>
-          </ol>
-        </div> */}
-        <div className="relative col-span-3 h-80">
+      <div className="grid  grid-col-1 md:grid-cols-7">
+        <div className="relative w-full md:col-span-3 h-80">
           <Image src="/7.jpg" alt="About" fill={true} />
         </div>
-        <div className="relative col-span-4 h-80">
+        <div className="relative w-full md:col-span-4 h-80">
           <Image src="/6.jpg" alt="About" fill={true} />
         </div>
       </div>

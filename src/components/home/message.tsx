@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Message() {
   return (
-    <section id="about" className="w-4/6 mx-auto mt-10 flex gap-6">
+    <section id="about" className="p-4 md:p-0 md:w-4/6 mx-auto mt-10 flex flex-col lg:flex-row gap-6">
       <div className="container mx-auto bg-[#f8f8ff] p-6 rounded-md">
         <h2 className="text-xl font-medium text-center mb-4">
           MESSAGE FROM HON&apos;BLE CHAIRMAN
