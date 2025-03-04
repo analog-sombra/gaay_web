@@ -1,10 +1,11 @@
 export default function Info() {
   return (
-    <section id="about" className="py-20 w-4/6 mx-auto">
-      <div className="container mx-auto px-4 bg-gray-100 p-3 rounded-lg">
-        <h2 className="text-3xl font-bold mb-8 text-center">
+    <section id="about" className="mt-6 w-4/6 mx-auto">
+      <div className="container mx-auto px-4 bg-[#f8f8ff] p-3 rounded-lg">
+        <h2 className="text-3xl font-medium text-center">
           Our aim is your financial development
         </h2>
+        <div className="h-[1px] w-full bg-gray-400 my-3"></div>
 
         <p className="text-sm">
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Dadra and Nagar Haveli, Daman and
@@ -22,8 +23,10 @@ export default function Info() {
           the Union Territory of Daman and Diu and Dadra and Nagar Haveli.
         </p>
       </div>
-      <div className="container mx-auto px-4 mt-20 bg-gray-100 p-3 rounded-lg">
-        <h2 className="text-3xl font-bold mb-8 text-center">Our Mission</h2>
+      <div className="container mx-auto px-4 mt-6 bg-[#f8f8ff] p-3 rounded-lg">
+        <h2 className="text-3xl font-medium text-center">Our Mission</h2>
+        <div className="h-[1px] w-full bg-gray-400 my-3"></div>
+
         <p className="text-sm">
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; At SC/ST corporation, our mission
           is to uplift SC/ST farmers and underprivileged communities in the

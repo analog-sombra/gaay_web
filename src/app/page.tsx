@@ -12,12 +12,14 @@ import Footer from "@/components/home/footer";
 import Header from "@/components/home/header";
 import Hero from "@/components/home/hero";
 import Info from "@/components/home/info";
+import Message from "@/components/home/message";
 
 export default function Home() {
   return (
     <div>
       <Header />
       <Hero />
+      <Message />
       <Info />
       <About />
       {/* <FAQ /> */}
