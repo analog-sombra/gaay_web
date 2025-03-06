@@ -10,15 +10,15 @@ export default function Info() {
         <p className="text-sm">
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Dadra and Nagar Haveli, Daman and
           Diu Scheduled Caste/Scheduled Tribes, Other Backward Classes
-          Minorities and Handicapped Financial and Development Corporation Lt.,
-          was established by the Govt. of India in the year 1993.
+          Minorities and Divyang Financial and Development Corporation Ltd.,
+          was established by the U.T. Administration of Dadra and Nagar Haveli and Daman and Diu in the year 1993.
         </p>
         <p className="text-sm mt-2">
           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The Corporation is registered as
           Company under the Companies Act 1956 and incorporated on 12.7.1993
           with Registrar of Companies, Ahmedabad having authorized Share Capital
           of Rs 10.00 crores and paid up capital of the Corporation as on date
-          is Rs 4.43 crores. The Registered office of the Corporation is
+          is Rs 4.93 crores. The Registered office of the Corporation is
           situated in Silvassa and its jurisdiction is extended to the whole of
           the Union Territory of Daman and Diu and Dadra and Nagar Haveli.
         </p>

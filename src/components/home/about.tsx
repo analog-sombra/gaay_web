@@ -81,20 +81,23 @@ export default function About() {
           </p>
         </div>
       </div>
-      <div className="grid grid-col-1 md:grid-cols-5">
-        <div className="relative w-full md:col-span-2 h-80">
-          <Image src="/4.jpg" alt="About" fill={true} />
-        </div>
-        <div className="relative w-full md:col-span-3 h-80">
+
+      <div className="grid  grid-col-1 md:grid-cols-12">
+        <div className="relative w-full md:col-span-6 h-80">
           <Image src="/5.jpg" alt="About" fill={true} />
         </div>
-      </div>
-      <div className="grid  grid-col-1 md:grid-cols-7">
-        <div className="relative w-full md:col-span-3 h-80">
-          <Image src="/7.jpg" alt="About" fill={true} />
+        <div className="relative w-full md:col-span-6 h-80">
+          <Image src="/13.jpg" alt="About" fill={true} />
         </div>
         <div className="relative w-full md:col-span-4 h-80">
-          <Image src="/6.jpg" alt="About" fill={true} />
+          <Image src="/4.jpg" alt="About" fill={true} />
+        </div>
+        <div className="relative w-full md:col-span-4 h-80">
+          <Image src="/11.jpg" alt="About" fill={true} />
+        </div>
+
+        <div className="relative w-full md:col-span-4 h-80">
+          <Image src="/12.jpg" alt="About" fill={true} />
         </div>
       </div>
     </section>
