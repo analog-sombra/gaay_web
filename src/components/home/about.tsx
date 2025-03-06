@@ -5,13 +5,13 @@ export default function About() {
     <section id="about" className="p-4 md:p-0 md:w-4/6 mx-auto mt-6">
       <div className="container mx-auto">
         <div className="bg-[#f8f8ff] p-3 rounded-md">
-          <h2 className="text-3xl font-medium text-center">Key Features</h2>
+          <h2 className="text-3xl font-medium text-center">Key Features of GAAY App</h2>
           <div className="h-[1px] w-full bg-gray-400 my-3"></div>
           <p className="text-lg font-semibold leading-5">
             Easy Loan Management
           </p>
           <p className="text-sm leading-4">
-            Simplifies the process of applying for and managing loans, making
+            Simplifies the process of applying and managing loans, making
             financial support accessible without complicated paperwork.
           </p>
 
@@ -19,7 +19,7 @@ export default function About() {
             Unique Cow Identification
           </p>
           <p className="text-sm leading-4">
-            Each cow is assigned a unique ear tag for accurate tracking,
+            Each cow is assigned a unique ear tag number for accurate tracking,
             ensuring better health monitoring and transparency.
           </p>
 
@@ -27,7 +27,7 @@ export default function About() {
             Instant Medical Assistance
           </p>
           <p className="text-sm leading-4">
-            Enables farmers to request immediate help from animal husbandry
+            Enables farmers to request immediate medical help from animal husbandry
             officers, ensuring prompt medical care for their cattle.
           </p>
 
@@ -43,7 +43,7 @@ export default function About() {
             Milk Supply Tracking
           </p>
           <p className="text-sm leading-4">
-            Helps farmers manage milk production and sales effectively, ensuring
+            Helps farmers to manage milk production and sales effectively, ensure
             fair pricing and accurate records.
           </p>
 
@@ -68,7 +68,7 @@ export default function About() {
             Farmer Profile Management
           </p>
           <p className="text-sm leading-4">
-            Tracks each farmer’s loan status, cattle health, and overall
+            Tracks loan status, cattle health, and overall
             progress, allowing for personalized support and better
             decision-making.
           </p>
@@ -90,7 +90,7 @@ export default function About() {
           <Image src="/13.jpg" alt="About" fill={true} />
         </div>
         <div className="relative w-full md:col-span-4 h-80">
-          <Image src="/4.jpg" alt="About" fill={true} />
+          <Image src="/20.jpg" alt="About" fill={true} />
         </div>
         <div className="relative w-full md:col-span-4 h-80">
           <Image src="/11.jpg" alt="About" fill={true} />

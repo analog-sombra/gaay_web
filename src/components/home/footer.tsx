@@ -41,7 +41,7 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Address</h3>
             <div>
               DNH DD SC/ST CORPORATION <br />
-              2ND FLOOR, B-WING, DISTRIICT COLLECTORATE, SILVASSA
+              2ND FLOOR, B-WING, DISTRICT COLLECTORATE, SILVASSA
               <br />
               DNH & DD.
             </div>
