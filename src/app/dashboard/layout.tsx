@@ -13,7 +13,7 @@ const Layout = ({
   return (
     <>
       <div className="min-h-screen w-full bg-[#f3f6f8] relative">
-        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} role="USER" />
 
         <div className={`relative p-0 md:pl-60 min-h-screen flex flex-col`}>
           {children}
