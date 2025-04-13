@@ -1071,3 +1071,150 @@ export function ClarityBlocksGroupLine(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function FluentShieldAdd48Filled(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 48 48"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M24.865 4.348a1.25 1.25 0 0 0-1.73 0c-2.759 2.643-6.685 4.077-10.037 4.84c-1.66.376-3.139.58-4.202.69a29 29 0 0 1-1.574.119L7.22 10A1.25 1.25 0 0 0 6 11.25v9.5c0 4.837 1.243 9.658 4.098 13.775c2.861 4.126 7.29 7.469 13.529 9.418c.243.076.503.076.746 0q.465-.146.916-.3A12.95 12.95 0 0 1 22 35c0-7.18 5.82-13 13-13c2.508 0 4.85.71 6.835 1.94Q42 22.474 42 21v-9.75A1.25 1.25 0 0 0 40.78 10q-.052 0-.102-.003l-.328-.017a29 29 0 0 1-1.246-.102a36 36 0 0 1-4.202-.69c-3.353-.763-7.279-2.197-10.037-4.84M46 35c0 6.075-4.925 11-11 11s-11-4.925-11-11s4.925-11 11-11s11 4.925 11 11m-10-7a1 1 0 1 0-2 0v6h-6a1 1 0 1 0 0 2h6v6a1 1 0 1 0 2 0v-6h6a1 1 0 1 0 0-2h-6z"
+      ></path>
+    </svg>
+  );
+}
+
+export function FluentBuildingShop16Regular(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      {/* Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE */}
+      <path
+        fill="currentColor"
+        d="M9 9.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm1 1.5h1v-1h-1zM4.188 1.11l-2.5 2c-.166.132-.188.36-.188.56V5.5c0 .563.186 1.082.5 1.5v7.5a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V7c.314-.418.5-.937.5-1.5V3.666c0-.2-.022-.424-.188-.556l-2.5-2A.5.5 0 0 0 11.5 1h-7a.5.5 0 0 0-.312.11M5.5 4v1.5a1.5 1.5 0 1 1-3 0V4zm4 0v1.5a1.5 1.5 0 1 1-3 0V4zm4 0v1.5a1.5 1.5 0 0 1-3 0V4zM6.029 2l-.375 1H3.425l1.25-1zm.693 1l.375-1H8.89l.333 1zm3.222-1h1.38l1.25 1h-2.297zM13 7.792V14H8V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V14H3V7.792A2.496 2.496 0 0 0 6 7c.456.607 1.182 1 2 1s1.544-.393 2-1a2.496 2.496 0 0 0 3 .792M7 14H5v-4h2z"
+      ></path>
+    </svg>
+  );
+}
+
+export function FluentBuildingSkyscraper24Regular(
+  props: SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      {/* Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE */}
+      <path
+        fill="currentColor"
+        d="M12 11a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2m-2-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2m10 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-1 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2M8.25 2.002a.75.75 0 0 0-.75.75V5H6.25a.75.75 0 0 0-.75.75V7.8A2.75 2.75 0 0 0 4 10.25v10.5c0 .415.336.75.75.75h15a.75.75 0 0 0 .75-.75v-5a5.75 5.75 0 0 0-5.51-5.745a2.75 2.75 0 0 0-1.487-2.203V5.75a.75.75 0 0 0-.75-.75H11.5V2.752a.75.75 0 0 0-.75-.75zM12.003 7.5H7v-1h5.003zM13.5 20H12v-2.75a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0-.75.75V20H5.5v-9.75C5.5 9.56 6.06 9 6.75 9h5.5c.69 0 1.25.56 1.25 1.25zm-5 0v-2h2v2zm6.5 0v-8.492a4.25 4.25 0 0 1 4 4.242V20zM10 5H9V3.502h1z"
+      ></path>
+    </svg>
+  );
+}
+
+export function FluentDocumentBulletList16Regular(
+  props: SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      {/* Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE */}
+      <path
+        fill="currentColor"
+        d="M5 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V5.414a1.5 1.5 0 0 0-.44-1.06L9.647 1.439A1.5 1.5 0 0 0 8.586 1zM4 3a1 1 0 0 1 1-1h3v2.5A1.5 1.5 0 0 0 9.5 6H12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zm7.793 2H9.5a.5.5 0 0 1-.5-.5V2.207zM7 7.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M7.5 9a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM7 11.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M5.5 8a.5.5 0 1 0 0-1a.5.5 0 0 0 0 1M6 9.5a.5.5 0 1 1-1 0a.5.5 0 0 1 1 0M5.5 12a.5.5 0 1 0 0-1a.5.5 0 0 0 0 1"
+      ></path>
+    </svg>
+  );
+}
+
+export function IcBaselineAttractions(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      {/* Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE */}
+      <path
+        fill="currentColor"
+        d="M10.43 18.75c.37-.46.94-.75 1.57-.75s1.19.29 1.56.75c.39-.09.76-.21 1.12-.36l-1.42-3.18a3.52 3.52 0 0 1-2.56-.02l-1.43 3.19c.38.16.76.29 1.16.37M5.15 10a7.06 7.06 0 0 0 .08 4c.63.05 1.22.4 1.56.99c.33.57.35 1.23.11 1.79c.27.27.56.53.87.76l1.52-3.39c-.47-.58-.75-1.32-.75-2.13c0-1.89 1.55-3.41 3.46-3.41s3.46 1.53 3.46 3.41c0 .82-.29 1.57-.78 2.16l1.5 3.35c.32-.24.62-.5.9-.79c-.22-.55-.2-1.2.12-1.75c.33-.57.9-.92 1.52-.99a7.03 7.03 0 0 0 .09-4.02c-.64-.04-1.26-.39-1.6-1c-.36-.62-.35-1.36-.03-1.95c-.91-.98-2.1-1.71-3.44-2.05C13.39 5.6 12.74 6 12 6s-1.39-.41-1.74-1.01a7.05 7.05 0 0 0-3.44 2.03c.33.6.35 1.35-.02 1.98c-.35.62-.99.97-1.65 1m-1.3-.42c-.78-.6-1.02-1.7-.51-2.58s1.58-1.23 2.49-.85a8.53 8.53 0 0 1 4.18-2.42C10.15 2.75 10.99 2 12 2s1.85.75 1.98 1.73c1.63.39 3.07 1.24 4.18 2.42a1.99 1.99 0 0 1 2.49.85c.51.88.27 1.98-.51 2.58c.23.77.35 1.58.35 2.42s-.12 1.65-.35 2.42c.78.6 1.02 1.7.51 2.58s-1.58 1.23-2.49.85c-.4.43-.85.81-1.34 1.15l1.34 3H16.3l-.97-2.17c-.43.18-.88.33-1.34.44c-.14.98-.98 1.73-1.99 1.73s-1.85-.75-1.98-1.73c-.48-.12-.94-.27-1.38-.46L7.66 22H5.78l1.36-3.03a8.7 8.7 0 0 1-1.3-1.12c-.92.38-1.99.03-2.5-.85s-.27-1.98.51-2.58c-.23-.77-.35-1.58-.35-2.42s.12-1.65.35-2.42"
+      ></path>
+    </svg>
+  );
+}
+
+export function IcOutlineInfo(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      {/* Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE */}
+      <path
+        fill="currentColor"
+        d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"
+      ></path>
+    </svg>
+  );
+}
+
+export function IcRoundTurnedInNot(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      {/* Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE */}
+      <path
+        fill="currentColor"
+        d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3l7 3V5c0-1.1-.9-2-2-2m0 15l-5-2.18L7 18V6c0-.55.45-1 1-1h8c.55 0 1 .45 1 1z"
+      ></path>
+    </svg>
+  );
+}
+
+export function IcOutlineInsertChart(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      {/* Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE */}
+      <path
+        fill="currentColor"
+        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H5V5h14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
+      ></path>
+    </svg>
+  );
+}

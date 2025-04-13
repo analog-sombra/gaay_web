@@ -1,7 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { ClarityBlocksGroupLine, FluentMdl2ViewDashboard } from "../icons";
+import {
+  FluentBuildingShop16Regular,
+  FluentBuildingSkyscraper24Regular,
+  FluentDocumentBulletList16Regular,
+  FluentMdl2ViewDashboard,
+  FluentShieldAdd48Filled,
+  IcBaselineAttractions,
+  SolarBellBold,
+} from "../icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -16,28 +24,101 @@ const Sidebar = (props: SidebarProps) => {
 
   return (
     <>
-      <div className="border-2 w-60 h-screen fiex top-0 left-0 fixed gap-1 z-20 p-4">
-        <div className="relative w-40 h-40 mx-auto">
-          <Image
-            fill={true}
-            alt="logo"
-            src={"/logo.png"}
-            className="w-full h-full"
+      <div
+        className={`w-60 h-screen top-0 left-0 fixed z-20 flex md:translate-x-0 bg-white md:bg-transparent ${
+          props.isOpen ? "translate-x-0" : "-translate-x-full md:-translate-x-0"
+        }`}
+      >
+        <div className="p-4 w-60">
+          <div className="relative w-40 h-40 mx-auto">
+            <Image
+              fill={true}
+              alt="logo"
+              src={"/logo.png"}
+              className="w-full h-full"
+            />
+          </div>
+          <div className="h-6"></div>
+
+          <MenuTab
+            name="Dashboard"
+            path={path}
+            pathcheck="/dashboard"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <FluentMdl2ViewDashboard className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
+          />
+          <MenuTab
+            name="Medical / Health"
+            path={path}
+            pathcheck="/medical"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <FluentShieldAdd48Filled className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
+          />
+          <MenuTab
+            name="Market Place"
+            path={path}
+            pathcheck="/marketplace"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <FluentBuildingShop16Regular className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
+          />
+          <MenuTab
+            name="Education"
+            path={path}
+            pathcheck="/education"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <FluentBuildingSkyscraper24Regular className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
+          />
+          <MenuTab
+            name="Cow"
+            path={path}
+            pathcheck="/cow"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <IcBaselineAttractions className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
+          />
+          <MenuTab
+            name="Reports"
+            path={path}
+            pathcheck="/reports"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <FluentDocumentBulletList16Regular className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
+          />
+          <MenuTab
+            name="Notifications"
+            path={path}
+            pathcheck="/notifications"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <SolarBellBold className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
           />
         </div>
-        <div className="h-6"></div>
-        <div className="mx-auto p-1 rounded-lg border-2 border-gray-500 flex gap-2 items-center">
-          <ClarityBlocksGroupLine className="text-xl grid place-items-center" />
-          <p className="text-lg font-semibold">Dashboard</p>
-        </div>
-
-        <MenuTab
-          name="Dashboard"
-          path={path}
-          pathcheck="/dashboard"
-          click={() => props.setIsOpen(false)}
-          icon={<FluentMdl2ViewDashboard className="text-gray-300 w-6" />}
-        />
+        <div className="w-[1px] bg-gray-400 my-10"></div>
       </div>
     </>
   );
@@ -57,18 +138,18 @@ const MenuTab = (props: MenuTabProps) => {
     <Link
       onClick={props.click}
       href={props.pathcheck}
-      className={`flex gap-1 px-1 items-center py-2 ${
+      className={`mx-auto p-1 rounded-lg  flex gap-2 items-center my-2 ${
         props.path == props.pathcheck
-          ? "border-l-2 border-blue-500 bg-white bg-opacity-10"
-          : ""
+          ? "bg-blue-500"
+          : "border-2 border-gray-300"
       }`}
     >
       {props.icon}
       <p
-        className={` text-sm ${
+        className={`text-lg  ${
           props.path == props.pathcheck
-            ? "font-medium text-white"
-            : " font-normal text-gray-400"
+            ? "text-white font-semibold"
+            : "text-black font-normal"
         }`}
       >
         {props.name}
