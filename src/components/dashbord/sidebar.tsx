@@ -8,6 +8,7 @@ import {
   FluentMdl2ViewDashboard,
   FluentShieldAdd48Filled,
   IcBaselineAttractions,
+  MaterialSymbolsPersonRounded,
   SolarBellBold,
 } from "../icons";
 import Link from "next/link";
@@ -54,7 +55,7 @@ const Sidebar = (props: SidebarProps) => {
           <MenuTab
             name="Medical / Health"
             path={path}
-            pathcheck="/medical"
+            pathcheck="/dashboard/medical"
             click={() => props.setIsOpen(false)}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">
@@ -65,7 +66,7 @@ const Sidebar = (props: SidebarProps) => {
           <MenuTab
             name="Market Place"
             path={path}
-            pathcheck="/marketplace"
+            pathcheck="/dashboard/marketplace"
             click={() => props.setIsOpen(false)}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">
@@ -76,7 +77,7 @@ const Sidebar = (props: SidebarProps) => {
           <MenuTab
             name="Education"
             path={path}
-            pathcheck="/education"
+            pathcheck="/dashboard/education"
             click={() => props.setIsOpen(false)}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">
@@ -85,9 +86,20 @@ const Sidebar = (props: SidebarProps) => {
             }
           />
           <MenuTab
+            name="Users"
+            path={path}
+            pathcheck="/dashboard/users"
+            click={() => props.setIsOpen(false)}
+            icon={
+              <div className="bg-[#f3f6f8] rounded-lg">
+                <MaterialSymbolsPersonRounded className="text-blue-500 w-6 h-6 p-1" />
+              </div>
+            }
+          />
+          <MenuTab
             name="Cow"
             path={path}
-            pathcheck="/cow"
+            pathcheck="/dashboard/cows"
             click={() => props.setIsOpen(false)}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">

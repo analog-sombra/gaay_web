@@ -23,6 +23,7 @@ const LoginPage = () => {
   };
 
   const login = useMutation({
+    mutationKey: ["login"],
     mutationFn: async (data: LoginForm) => {
       const response = await ApiCall({
         query:

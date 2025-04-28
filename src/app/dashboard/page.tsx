@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Input, Select } from "antd";
 import { useState } from "react";
 
-import { Chart as ChartJS, registerables } from "chart.js";
+import { ChartData, Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
 ChartJS.register(...registerables);
 
@@ -55,7 +55,7 @@ const Dashboard = () => {
     refetchOnWindowFocus: false,
   });
 
-  const options: any = {
+  const options = {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
@@ -78,7 +78,7 @@ const Dashboard = () => {
         },
       },
     },
-    indexAxis: "x",
+    indexAxis: "x" as const,
     elements: {
       bar: {
         borderWidth: 2,
@@ -93,7 +93,7 @@ const Dashboard = () => {
         font: {
           size: 10,
         },
-        formatter: function (value: any) {
+        formatter: function (value: unknown) {
           return value;
         },
       },
@@ -167,12 +167,14 @@ const Dashboard = () => {
     },
   });
 
-  const dataset: any = {
+  // import { ChartData } from "chart.js";
+
+  const dataset: ChartData<"bar"> = {
     labels: label,
     datasets: [
       {
         label: "Treatments",
-        data: chardata.data?.monthlyData.map((item: any) => item.count),
+        data: chardata.data?.monthlyData.map((item) => item.count) || [],
         backgroundColor: "#95acbe",
         borderWidth: 0,
       },

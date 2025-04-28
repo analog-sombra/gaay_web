@@ -1,7 +1,7 @@
 "use client";
 
 import Sidebar from "@/components/dashbord/sidebar";
-import { IcBaselineArrowBack, MaterialSymbolsKeyboardDoubleArrowRight } from "@/components/icons";
+import { MaterialSymbolsKeyboardDoubleArrowRight } from "@/components/icons";
 import { useState } from "react";
 
 const Layout = ({
