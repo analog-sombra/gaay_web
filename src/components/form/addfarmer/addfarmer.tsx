@@ -1,0 +1,139 @@
+import { FormProvider, useForm } from "react-hook-form";
+import { valibotResolver } from "@hookform/resolvers/valibot";
+import { onFormError } from "@/utils/methods";
+import { TextInput } from "../inputfields/textinput";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { ApiCall } from "@/services/api";
+import { toast } from "react-toastify";
+import { AddFarmerForm, AddFarmerSchema } from "@/schema/addfarmer";
+import { MultiSelect } from "../inputfields/multiselect";
+
+const AddFarmerPage = () => {
+  const router = useRouter();
+  const methods = useForm<AddFarmerForm>({
+    resolver: valibotResolver(AddFarmerSchema),
+  });
+
+  type AddFarmerResponse = {
+    id: string;
+    name: string;
+    role: string;
+  };
+
+  const login = useMutation({
+    mutationKey: ["login"],
+    mutationFn: async (data: AddFarmerForm) => {
+      const response = await ApiCall({
+        query:
+          "mutation CreateUser($createUserInput: CreateUserInput!) { createUser(createUserInput: $createUserInput) {id,name,role}}",
+        variables: {
+          createUserInput: {
+            beneficiary_code: data.beneficiary_code,
+            beneficiary_type: data.beneficiary_type,
+            contact: data.contact,
+            cow_count: parseInt(data.cow_count),
+            name: data.name,
+            role: "FARMER",
+          },
+        },
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["createUser"]) {
+        throw new Error("Value not found in response");
+      }
+      return (response.data as Record<string, unknown>)[
+        "createUser"
+      ] as AddFarmerResponse;
+    },
+
+    onSuccess: () => {
+      router.push("/dashboard");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const onSubmit = async (data: AddFarmerForm) => {
+    login.mutate({
+      beneficiary_code: data.beneficiary_code,
+      beneficiary_type: data.beneficiary_type,
+      contact: data.contact,
+      cow_count: data.cow_count,
+      name: data.name,
+    });
+  };
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit, onFormError)}>
+        <div className="mt-2">
+          <TextInput<AddFarmerForm>
+            title="Farmer Name"
+            required={true}
+            name="name"
+            placeholder="Enter Farmer Name"
+          />
+        </div>
+
+        <div className="mt-2">
+          <TextInput<AddFarmerForm>
+            title="Mobile Number"
+            required={true}
+            name="contact"
+            onlynumber={true}
+            maxlength={10}
+            placeholder="Enter mobile number"
+          />
+        </div>
+        <div className="mt-2">
+          <TextInput<AddFarmerForm>
+            title="Beneficiary Code"
+            required={true}
+            name="beneficiary_code"
+            placeholder="Enter Beneficiary Code"
+          />
+        </div>
+
+        <div className="mt-2">
+          <TextInput<AddFarmerForm>
+            title="Cow Count"
+            required={true}
+            name="cow_count"
+            onlynumber={true}
+            placeholder="Enter Cow Count"
+          />
+        </div>
+
+        <div className="mt-2">
+          <MultiSelect<AddFarmerForm>
+            title="Beneficiary Type"
+            required={true}
+            name="beneficiary_type"
+            placeholder="Select Beneficiary Type"
+            options={[
+              { label: "SSDU", value: "SSDU" },
+              { label: "IDDP", value: "IDDP" },
+            ]}
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={methods.formState.isSubmitting}
+          className="py-1 rounded-md bg-blue-500 px-4 text-sm text-white mt-2 cursor-pointer w-full"
+        >
+          {login.isPending ? "Loading..." : "Register"}
+        </button>
+      </form>
+    </FormProvider>
+  );
+};
+
+export default AddFarmerPage;

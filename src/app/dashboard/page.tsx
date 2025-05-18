@@ -17,6 +17,7 @@ import { useState } from "react";
 
 import { ChartData, Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import Link from "next/link";
 ChartJS.register(...registerables);
 
 const { Search } = Input;
@@ -368,9 +369,12 @@ const Dashboard = () => {
                 <div className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4">
                   Add New Cow
                 </div>
-                <div className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4">
+                <Link
+                  href={"/dashboard/addfarmer"}
+                  className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4"
+                >
                   Add New Gaupalak
-                </div>
+                </Link>
                 <div className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4">
                   Add New Vendor
                 </div>

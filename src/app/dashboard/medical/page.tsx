@@ -76,6 +76,7 @@ const Medical = () => {
     });
     medicaldata.refetch();
   };
+
   return (
     <div className="p-6">
       <div className="flex gap-2 items-center">
