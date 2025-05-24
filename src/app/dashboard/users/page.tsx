@@ -29,6 +29,7 @@ const Users = () => {
       contact: string;
       name: string;
       beneficiary_code: string;
+      cow_count: number;
     }[];
   }
 
@@ -38,7 +39,7 @@ const Users = () => {
     queryFn: async () => {
       const response = await ApiCall({
         query:
-          "mutation SearchUsers($searchUserPaginationInput: SearchUserPaginationInput!) { searchUsers(searchUserPaginationInput: $searchUserPaginationInput) {total, skip, take, data {id, name, contact,beneficiary_code }}}",
+          "mutation SearchUsers($searchUserPaginationInput: SearchUserPaginationInput!) { searchUsers(searchUserPaginationInput: $searchUserPaginationInput) {total, skip, take, data {id, name, contact,beneficiary_code, cow_count }}}",
         variables: {
           searchUserPaginationInput: {
             take: pagination.take,
@@ -114,6 +115,9 @@ const Users = () => {
                   Beneficiary Code
                 </th>
                 <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
+                  Cow Count
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
                   Action
                 </th>
               </tr>
@@ -132,6 +136,9 @@ const Users = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
                     {user.beneficiary_code}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
+                    {user.cow_count}
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
                     <button

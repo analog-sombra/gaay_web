@@ -1,4 +1,4 @@
-import { BeneficiaryType } from "@/models/main";
+import { Role } from "@/models/main";
 import { isContainSpace } from "@/utils/methods";
 import {
   check,
@@ -7,13 +7,12 @@ import {
   object,
   string,
   pipe,
-  enum_,
   nullish,
+  enum_,
 } from "valibot";
 
-const AddFarmerSchema = object({
+const AddStaffSchema = object({
   name: pipe(string("Enter Farmer Name")),
-  beneficiary_code: pipe(string("Enter Beneficiary Code")),
   contact: pipe(
     string(),
     minLength(10, "Mobile number should be 10 digits."),
@@ -26,15 +25,11 @@ const AddFarmerSchema = object({
       check(isContainSpace, "Mobile number cannot contain space.")
     )
   ),
-  occupation: nullish(
-    pipe(string("Enter Occupation"), minLength(3, "Occupation is too short"))
-  ),
   address: pipe(string("Enter Address")),
   village: pipe(string("Enter Village Name")),
   district: pipe(string("Enter District Name")),
-  beneficiary_type: enum_(BeneficiaryType, "Select Beneficiary Type"),
-  cow_count: pipe(string("Enter Number of Cows")),
+  role: enum_(Role, "Select Role"),
 });
 
-type AddFarmerForm = InferInput<typeof AddFarmerSchema>;
-export { AddFarmerSchema, type AddFarmerForm };
+type AddStaffForm = InferInput<typeof AddStaffSchema>;
+export { AddStaffSchema, type AddStaffForm };

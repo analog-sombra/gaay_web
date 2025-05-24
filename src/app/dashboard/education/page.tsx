@@ -86,7 +86,7 @@ const Educations = () => {
   return (
     <div className="p-6">
       <div className="flex gap-2 items-center">
-        <h1 className="text-[#162f57] text-2xl font-semibold">Educations</h1>
+        <h1 className="text-[#162f57] text-2xl font-semibold">Education</h1>
         <div className="grow"></div>
         <Radio.Group
           options={learnoptions}

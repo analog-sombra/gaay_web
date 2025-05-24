@@ -31,6 +31,7 @@ const Cows = () => {
       farmer: {
         name: string;
         contact: string;
+        beneficiary_code: string;
       };
     }[];
   }
@@ -41,7 +42,7 @@ const Cows = () => {
     queryFn: async () => {
       const response = await ApiCall({
         query:
-          "mutation SearchCows($searchCowPaginationInput: SearchCowPaginationInput!) { searchCows(searchCowPaginationInput: $searchCowPaginationInput) {total,skip,take,data {id, cowtagno,cowname,farmer {name,contact}}}}",
+          "mutation SearchCows($searchCowPaginationInput: SearchCowPaginationInput!) { searchCows(searchCowPaginationInput: $searchCowPaginationInput) {total,skip,take,data {id, cowtagno,cowname,farmer {name,contact, beneficiary_code}}}}",
         variables: {
           searchCowPaginationInput: {
             take: pagination.take,
@@ -104,16 +105,16 @@ const Cows = () => {
             <thead className="bg-gray-100">
               <tr>
                 <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
-                  Sr No.
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
-                  Cow Tag No.
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
-                  Name
+                  Beneficiary Code
                 </th>
                 <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
                   Farmer
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
+                  Cow Name
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
+                  Cow Tag No.
                 </th>
                 <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
                   Contact Number
@@ -127,16 +128,16 @@ const Cows = () => {
               {cowdata.data?.data.map((cow, index) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
-                    {pagination.skip + index + 1}
+                    {cow.farmer.beneficiary_code}
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
-                    {cow.cowtagno}
+                    {cow.farmer.name}
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
                     {cow.cowname}
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
-                    {cow.farmer.name}
+                    {cow.cowtagno}
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
                     {cow.farmer.contact}

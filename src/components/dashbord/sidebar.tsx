@@ -110,7 +110,7 @@ const Sidebar = (props: SidebarProps) => {
           <MenuTab
             name="Reports"
             path={path}
-            pathcheck="/reports"
+            pathcheck="#"
             click={() => props.setIsOpen(false)}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">
@@ -121,7 +121,7 @@ const Sidebar = (props: SidebarProps) => {
           <MenuTab
             name="Notifications"
             path={path}
-            pathcheck="/notifications"
+            pathcheck="#"
             click={() => props.setIsOpen(false)}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">

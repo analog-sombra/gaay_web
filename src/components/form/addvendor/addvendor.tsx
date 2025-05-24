@@ -6,16 +6,16 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { ApiCall } from "@/services/api";
 import { toast } from "react-toastify";
-import { AddFarmerForm, AddFarmerSchema } from "@/schema/addfarmer";
+import { AddStaffForm, AddStaffSchema } from "@/schema/addstaff";
 import { MultiSelect } from "../inputfields/multiselect";
 
-const AddFarmerPage = () => {
+const AddVendorPage = () => {
   const router = useRouter();
-  const methods = useForm<AddFarmerForm>({
-    resolver: valibotResolver(AddFarmerSchema),
+  const methods = useForm<AddStaffForm>({
+    resolver: valibotResolver(AddStaffSchema),
   });
 
-  type AddFarmerResponse = {
+  type AddStaffResponse = {
     id: string;
     name: string;
     role: string;
@@ -23,23 +23,19 @@ const AddFarmerPage = () => {
 
   const login = useMutation({
     mutationKey: ["login"],
-    mutationFn: async (data: AddFarmerForm) => {
+    mutationFn: async (data: AddStaffForm) => {
       const response = await ApiCall({
         query:
-          "mutation CreateUser($createUserInput: CreateUserInput!) { createUser(createUserInput: $createUserInput) {id,name,role}}",
+          "mutation CreateStaff($createStaffInput: CreateStaffInput!) { createStaff(createStaffInput: $createStaffInput) {id,name,role}}",
         variables: {
-          createUserInput: {
-            beneficiary_code: data.beneficiary_code,
-            beneficiary_type: data.beneficiary_type,
+          createStaffInput: {
             contact: data.contact,
-            cow_count: parseInt(data.cow_count),
             name: data.name,
-            role: "FARMER",
             address: data.address,
             village: data.village,
             district: data.district,
             contact_two: data.contact_two,
-            occupation: data.occupation,
+            role: data.role,
           },
         },
       });
@@ -49,12 +45,12 @@ const AddFarmerPage = () => {
       }
 
       // if value is not in response.data then return the error
-      if (!(response.data as Record<string, unknown>)["createUser"]) {
+      if (!(response.data as Record<string, unknown>)["createStaff"]) {
         throw new Error("Value not found in response");
       }
       return (response.data as Record<string, unknown>)[
-        "createUser"
-      ] as AddFarmerResponse;
+        "createStaff"
+      ] as AddStaffResponse;
     },
 
     onSuccess: () => {
@@ -65,18 +61,15 @@ const AddFarmerPage = () => {
     },
   });
 
-  const onSubmit = async (data: AddFarmerForm) => {
+  const onSubmit = async (data: AddStaffForm) => {
     login.mutate({
-      beneficiary_code: data.beneficiary_code,
-      beneficiary_type: data.beneficiary_type,
       contact: data.contact,
-      cow_count: data.cow_count,
       name: data.name,
       address: data.address,
       village: data.village,
       district: data.district,
       contact_two: data.contact_two,
-      occupation: data.occupation,
+      role: data.role,
     });
   };
 
@@ -84,16 +77,16 @@ const AddFarmerPage = () => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit, onFormError)}>
         <div className="mt-2">
-          <TextInput<AddFarmerForm>
-            title="Farmer Name"
+          <TextInput<AddStaffForm>
+            title="Name"
             required={true}
             name="name"
-            placeholder="Enter Farmer Name"
+            placeholder="Enter Name"
           />
         </div>
 
         <div className="mt-2">
-          <TextInput<AddFarmerForm>
+          <TextInput<AddStaffForm>
             title="Mobile Number"
             required={true}
             name="contact"
@@ -104,7 +97,7 @@ const AddFarmerPage = () => {
         </div>
 
         <div className="mt-2">
-          <TextInput<AddFarmerForm>
+          <TextInput<AddStaffForm>
             title="Alternate Mobile Number"
             name="contact_two"
             onlynumber={true}
@@ -113,47 +106,7 @@ const AddFarmerPage = () => {
         </div>
 
         <div className="mt-2">
-          <TextInput<AddFarmerForm>
-            title="Occupation"
-            name="occupation"
-            placeholder="Enter Occupation"
-          />
-        </div>
-
-        <div className="mt-2">
-          <TextInput<AddFarmerForm>
-            title="Beneficiary Code"
-            required={true}
-            name="beneficiary_code"
-            placeholder="Enter Beneficiary Code"
-          />
-        </div>
-
-        <div className="mt-2">
-          <TextInput<AddFarmerForm>
-            title="Cow Count"
-            required={true}
-            name="cow_count"
-            onlynumber={true}
-            placeholder="Enter Cow Count"
-          />
-        </div>
-
-        <div className="mt-2">
-          <MultiSelect<AddFarmerForm>
-            title="Beneficiary Type"
-            required={true}
-            name="beneficiary_type"
-            placeholder="Select Beneficiary Type"
-            options={[
-              { label: "SSDU", value: "SSDU" },
-              { label: "IDDP", value: "IDDP" },
-            ]}
-          />
-        </div>
-
-        <div className="mt-2">
-          <TextInput<AddFarmerForm>
+          <TextInput<AddStaffForm>
             title="Address"
             required={true}
             name="address"
@@ -162,7 +115,7 @@ const AddFarmerPage = () => {
         </div>
 
         <div className="mt-2">
-          <TextInput<AddFarmerForm>
+          <TextInput<AddStaffForm>
             title="Village"
             required={true}
             name="village"
@@ -170,11 +123,26 @@ const AddFarmerPage = () => {
           />
         </div>
         <div className="mt-2">
-          <TextInput<AddFarmerForm>
+          <TextInput<AddStaffForm>
             title="District"
             required={true}
             name="district"
             placeholder="Enter District Name"
+          />
+        </div>
+
+        <div className="mt-2">
+          <MultiSelect<AddStaffForm>
+            title="Role"
+            required={true}
+            name="role"
+            placeholder="Select Role"
+            options={["SELLERCOW", "SELLERMEDICINE", "SELLERFODDER"].map(
+              (item) => ({
+                label: item,
+                value: item,
+              })
+            )}
           />
         </div>
 
@@ -190,4 +158,4 @@ const AddFarmerPage = () => {
   );
 };
 
-export default AddFarmerPage;
+export default AddVendorPage;

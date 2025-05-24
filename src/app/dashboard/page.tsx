@@ -299,6 +299,7 @@ const Dashboard = () => {
                 <FluentShieldAdd48Filled className="text-blue-500 text-4xl" />
               }
               id={1}
+              link={"/dashboard/medical"}
             />
             <Task
               title="New Cow Added"
@@ -309,6 +310,7 @@ const Dashboard = () => {
                 <IcBaselineAttractions className="text-blue-500 text-4xl" />
               }
               id={1}
+              link={"/dashboard/cows"}
             />
             <Task
               title="Gauplak Profile Created"
@@ -318,6 +320,7 @@ const Dashboard = () => {
               icon={
                 <MaterialSymbolsPersonRounded className="text-blue-500 text-4xl" />
               }
+              link={"/dashboard/users"}
               id={1}
             />
           </div>
@@ -365,22 +368,26 @@ const Dashboard = () => {
                 <IcRoundTurnedInNot className="text-blue-500 text-3xl" />
                 <p className="text-lg">Quick Access</p>
               </div>
-              <div className="gap-4 grid grid-cols-4 md:grid-cols-2 lg:grid-cols-4">
-                <div className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4">
-                  Add New Cow
-                </div>
+              <div className="gap-4 grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3">
                 <Link
                   href={"/dashboard/addfarmer"}
                   className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4"
                 >
                   Add New Gaupalak
                 </Link>
-                <div className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4">
+                <Link
+                  href={"/dashboard/addvendor"}
+                  className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4"
+                >
                   Add New Vendor
-                </div>
-                <div className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4">
+                </Link>
+
+                <Link
+                  href={"/dashboard/addstaff"}
+                  className="bg-[#f1e0cd] rounded-md grid place-items-center py-6 text-center px-4"
+                >
                   Add New Staff
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -399,6 +406,7 @@ interface TaskProps {
   doctor: string;
   status: string;
   icon: React.ReactNode;
+  link: string;
 }
 
 const Task = (props: TaskProps) => {
@@ -413,9 +421,12 @@ const Task = (props: TaskProps) => {
         </p>
         <p className="text-sm text-gray-600">Status: {props.status}</p>
       </div>
-      <button className="bg-blue-500 text-white rounded-full px-2 py-1">
+      <Link
+        href={props.link}
+        className="bg-blue-500 text-white rounded-full px-2 py-1"
+      >
         View Details
-      </button>
+      </Link>
     </div>
   );
 };
