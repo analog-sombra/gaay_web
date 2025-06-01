@@ -27,6 +27,7 @@ const Medical = () => {
     data: {
       id: number;
       reason: string;
+      medicalStatus: string;
       cow: {
         cowtagno: string;
         cowname: string;
@@ -44,7 +45,7 @@ const Medical = () => {
     queryFn: async () => {
       const response = await ApiCall({
         query:
-          "mutation SearchMedicalRequest($searchMedicalPaginationInput: SearchMedicalPaginationInput!) { searchMedicalRequest(searchMedicalPaginationInput: $searchMedicalPaginationInput) {total,skip,take,data {id, reason,cow {cowtagno,cowname}, farmer {name,contact}}}}",
+          "mutation SearchMedicalRequest($searchMedicalPaginationInput: SearchMedicalPaginationInput!) { searchMedicalRequest(searchMedicalPaginationInput: $searchMedicalPaginationInput) {total,skip,take,data {id, reason, medicalStatus, cow {cowtagno,cowname}, farmer {name,contact}}}}",
         variables: {
           searchMedicalPaginationInput: {
             take: pagination.take,
@@ -128,6 +129,9 @@ const Medical = () => {
                   Reason
                 </th>
                 <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
+                  Status
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left text-md font-normal">
                   Action
                 </th>
               </tr>
@@ -152,6 +156,9 @@ const Medical = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
                     {medical.reason}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
+                    {medical.medicalStatus}
                   </td>
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
                     <button
