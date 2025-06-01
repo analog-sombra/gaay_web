@@ -18,6 +18,7 @@ import { useState } from "react";
 import { ChartData, Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import Link from "next/link";
+import { encryptURLData } from "@/utils/methods";
 ChartJS.register(...registerables);
 
 const { Search } = Input;
@@ -28,10 +29,80 @@ interface DashboardData {
   venders: number;
 }
 
+interface UsersResponse {
+  id: number;
+  name: string;
+  alias: string;
+  contact: string;
+  beneficiary_code: string;
+  address: string;
+  village: string;
+  district: string;
+  category: string;
+  occupation: string;
+  beneficiary_type: string;
+  cow_count: number;
+  photo: string | null;
+}
+
+interface CowResponse {
+  id: number;
+  farmerid: number;
+  cowname: string;
+  cowstatus: string;
+  alias: string;
+  farmer: {
+    id: number;
+    name: string;
+    contact: string;
+  };
+  photocover: string;
+  sex: string;
+  birthdate: string;
+  cowtagno: string;
+  noofcalves: number;
+  weight: number;
+  daily_milk_produce: number;
+}
+
+interface LatestMedicalResponse {
+  id: number;
+  type: string;
+  remarks: string;
+  follow_up_treatment: string;
+  follow_up_date: Date;
+  treatment_provided: string;
+  date: Date;
+  scheduled_date: Date;
+  reason: string;
+  doctorid: number;
+  medicalStatus: string;
+  complaint_no: string;
+  farmer: {
+    id: number;
+    name: string;
+    contact: string;
+  };
+  cow: {
+    id: number;
+    farmerid: number;
+    cowname: string;
+    cowstatus: string;
+    alias: string;
+    photocover: string;
+    sex: string;
+    birthdate: string;
+    cowtagno: string;
+    noofcalves: number;
+    weight: number;
+    daily_milk_produce: number;
+  };
+}
+
 const Dashboard = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const dashboarddata = useQuery({
-    queryKey: ["dashbaord"],
+    queryKey: ["dashboard"],
     queryFn: async () => {
       const response = await ApiCall({
         query:
@@ -42,7 +113,6 @@ const Dashboard = () => {
       if (!response.status) {
         throw new Error(response.message);
       }
-      console.log(response);
 
       // if value is not in response.data then return the error
       if (!(response.data as Record<string, unknown>)["getDashbordData"]) {
@@ -121,14 +191,6 @@ const Dashboard = () => {
     return month.toLocaleString("en-US", { month: "short" });
   });
 
-  // query TreatmentGraph($year: String!) {
-  //   treatmentGraph(year: $year) {
-  //   monthlyData {
-  //     count,
-  //     month
-  //   }
-  //   }
-  // }
   interface MonthData {
     monthlyData: {
       count: number;
@@ -182,6 +244,113 @@ const Dashboard = () => {
     ],
   };
 
+  const userdata = useQuery({
+    queryKey: ["latestFarmer"],
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const response = await ApiCall({
+        query:
+          "query LatestFarmer{ latestFarmer{ id, name, alias, contact, beneficiary_code, address, village, district, category, occupation, beneficiary_type, cow_count, photo }}",
+        variables: {},
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["latestFarmer"]) {
+        throw new Error("Value not found in response");
+      }
+      return (response.data as Record<string, unknown>)[
+        "latestFarmer"
+      ] as UsersResponse;
+    },
+  });
+
+  const cowdata = useQuery({
+    queryKey: ["latestCow"],
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const response = await ApiCall({
+        query:
+          "query LatestCow{ latestCow{ id, farmerid, alias, cowname, cowstatus, farmer { name, contact, id } photocover, sex, birthdate, cowtagno, noofcalves, weight, daily_milk_produce}}",
+        variables: {},
+      });
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["latestCow"]) {
+        throw new Error("Value not found in response");
+      }
+      return (response.data as Record<string, unknown>)[
+        "latestCow"
+      ] as CowResponse;
+    },
+  });
+
+  const medicaldata = useQuery({
+    queryKey: ["latestMedicalRequest"],
+    refetchOnWindowFocus: false,
+    queryFn: async () => {
+      const response = await ApiCall({
+        query:
+          "query LatestMedicalRequest{ latestMedicalRequest{ id, type, remarks, reason, date, follow_up_treatment, follow_up_date, scheduled_date, complaint_no, medicalStatus, treatment_provided, farmer { name, contact, id }, cow { id, farmerid, alias, cowname, cowstatus, photocover, sex, birthdate, cowtagno, noofcalves, weight, daily_milk_produce}}}",
+        variables: {},
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["latestMedicalRequest"]) {
+        throw new Error("Value not found in response");
+      }
+      return (response.data as Record<string, unknown>)[
+        "latestMedicalRequest"
+      ] as LatestMedicalResponse;
+    },
+  });
+
+  if (medicaldata.isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-2xl font-semibold">Loading...</p>
+      </div>
+    );
+  }
+
+  if (medicaldata.isError) {
+    return <div>Error: {medicaldata.error.message}</div>;
+  }
+
+  if (cowdata.isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-2xl font-semibold">Loading...</p>
+      </div>
+    );
+  }
+
+  if (cowdata.isError) {
+    return <div>Error: {cowdata.error.message}</div>;
+  }
+
+  if (userdata.isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-2xl font-semibold">Loading...</p>
+      </div>
+    );
+  }
+
+  if (userdata.isError) {
+    return <div>Error: {userdata.error.message}</div>;
+  }
+
   if (dashboarddata.isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -199,7 +368,6 @@ const Dashboard = () => {
           </p>
           <div>
             <p>Department</p>
-            {/* <p>Monday, December 23, 2024</p> */}
             <p>
               {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
@@ -218,8 +386,8 @@ const Dashboard = () => {
           <div>
             <p className="text-xl font-semibold">Important Message</p>
             <p className="text-sm text-gray-600">
-              2 Inseminatin Requestes, 2 Medical Alerts, 5 New Cow Registered,
-              Action Needed
+              {dashboarddata.data?.medical} Pending Medical Alerts - Action
+              Needed
             </p>
           </div>
         </div>
@@ -290,37 +458,38 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <Task
+            <MedicalRequestCard
               title="New Insemination Request"
-              name="shanti D Kurkute"
-              doctor="Dr, Angali Sharma"
-              status="Visit Scheduled"
+              name={medicaldata.data?.farmer.name || "-"}
+              cowname={medicaldata.data?.cow.cowname || "-"}
+              status={medicaldata.data?.reason || "-"}
               icon={
                 <FluentShieldAdd48Filled className="text-blue-500 text-4xl" />
               }
               id={1}
-              link={"/dashboard/medical"}
+              link={`/dashboard/medical/${encryptURLData(medicaldata.data?.id.toString() || "1")}`}
             />
-            <Task
+            <CowCard
               title="New Cow Added"
-              name="Mani R Gavil"
-              doctor="Dr. Prakash Mehta"
-              status="In Progress"
+              name={cowdata.data?.cowname || "-"}
+              tagno={cowdata.data?.cowtagno || "-"}
+              farmer={cowdata.data?.farmer.name || "-"}
               icon={
                 <IcBaselineAttractions className="text-blue-500 text-4xl" />
               }
               id={1}
-              link={"/dashboard/cows"}
+              link={`/dashboard/cows/${encryptURLData(cowdata.data?.id.toString() || "1")}`}
             />
-            <Task
+            <FarmerCard
               title="Gauplak Profile Created"
-              name="Rekha S Chaudhary"
-              doctor="Dr. Prakash Mehta"
+              name={userdata.data?.name || "-"}
+              contact={userdata.data?.contact || "-"}
+              code={userdata.data?.beneficiary_code || "-"}
               status="In Progress"
               icon={
                 <MaterialSymbolsPersonRounded className="text-blue-500 text-4xl" />
               }
-              link={"/dashboard/users"}
+              link={`/dashboard/users/${encryptURLData(userdata.data?.id.toString() || "1")}`}
               id={1}
             />
           </div>
@@ -399,31 +568,89 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-interface TaskProps {
+interface MedicalRequestCardProps {
   id: number;
   title: string;
   name: string;
-  doctor: string;
+  cowname: string;
   status: string;
   icon: React.ReactNode;
   link: string;
 }
 
-const Task = (props: TaskProps) => {
+const MedicalRequestCard = (props: MedicalRequestCardProps) => {
   return (
     <div className=" p-2 flex flex-row gap-4 items-center shadow-md rounded-md mt-2">
       {props.icon}
       <div className="grow">
         <p className="text-lg font-semibold">{props.title}</p>
         <p className="text-sm text-gray-600">Gaupalak Name: {props.name}</p>
-        <p className="text-sm text-gray-600">
-          Doctor Assigend : {props.doctor}
-        </p>
+        <p className="text-sm text-gray-600">Cow Name : {props.cowname}</p>
         <p className="text-sm text-gray-600">Status: {props.status}</p>
       </div>
       <Link
         href={props.link}
-        className="bg-blue-500 text-white rounded-full px-2 py-1"
+        className="bg-blue-500 text-white rounded-full px-2 py-1 shrink-0 w-32 text-center"
+      >
+        View Details
+      </Link>
+    </div>
+  );
+};
+interface CowCardProps {
+  id: number;
+  title: string;
+  name: string;
+  farmer: string;
+  tagno: string;
+  icon: React.ReactNode;
+  link: string;
+}
+
+const CowCard = (props: CowCardProps) => {
+  return (
+    <div className=" p-2 flex flex-row gap-4 items-center shadow-md rounded-md mt-2">
+      {props.icon}
+      <div className="grow">
+        <p className="text-lg font-semibold">{props.title}</p>
+        <p className="text-sm text-gray-600">Gaupalak Name: {props.farmer}</p>
+        <p className="text-sm text-gray-600">Cow Name : {props.name}</p>
+        <p className="text-sm text-gray-600">Tag No: {props.tagno}</p>
+      </div>
+      <Link
+        href={props.link}
+        className="bg-blue-500 text-white rounded-full px-2 py-1 shrink-0 w-32 text-center"
+      >
+        View Details
+      </Link>
+    </div>
+  );
+};
+
+interface FarmerCardProps {
+  id: number;
+  title: string;
+  name: string;
+  contact: string;
+  code: string;
+  status: string;
+  icon: React.ReactNode;
+  link: string;
+}
+
+const FarmerCard = (props: FarmerCardProps) => {
+  return (
+    <div className=" p-2 flex flex-row gap-4 items-center shadow-md rounded-md mt-2">
+      {props.icon}
+      <div className="grow">
+        <p className="text-lg font-semibold">{props.title}</p>
+        <p className="text-sm text-gray-600">Gaupalak Name: {props.name}</p>
+        <p className="text-sm text-gray-600">Contact : {props.contact}</p>
+        <p className="text-sm text-gray-600">Beneficiary Code: {props.code}</p>
+      </div>
+      <Link
+        href={props.link}
+        className="bg-blue-500 text-white rounded-full px-2 py-1 shrink-0 w-32 text-center"
       >
         View Details
       </Link>

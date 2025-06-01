@@ -9,7 +9,6 @@ import {
   FluentShieldAdd48Filled,
   IcBaselineAttractions,
   MaterialSymbolsPersonRounded,
-  SolarBellBold,
 } from "../icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -110,7 +109,7 @@ const Sidebar = (props: SidebarProps) => {
           <MenuTab
             name="Reports"
             path={path}
-            pathcheck="#"
+            pathcheck="/dashboard/reports"
             click={() => props.setIsOpen(false)}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">
@@ -118,7 +117,7 @@ const Sidebar = (props: SidebarProps) => {
               </div>
             }
           />
-          <MenuTab
+          {/* <MenuTab
             name="Notifications"
             path={path}
             pathcheck="#"
@@ -128,7 +127,7 @@ const Sidebar = (props: SidebarProps) => {
                 <SolarBellBold className="text-blue-500 w-6 h-6 p-1" />
               </div>
             }
-          />
+          /> */}
         </div>
         <div className="w-[1px] bg-gray-400 my-10"></div>
       </div>
