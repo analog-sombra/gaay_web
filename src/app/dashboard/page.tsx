@@ -12,7 +12,7 @@ import {
 } from "@/components/icons";
 import { ApiCall } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import { Input, Select } from "antd";
+import { Select } from "antd";
 import { useState } from "react";
 
 import { ChartData, Chart as ChartJS, registerables } from "chart.js";
@@ -21,7 +21,6 @@ import Link from "next/link";
 import { encryptURLData } from "@/utils/methods";
 ChartJS.register(...registerables);
 
-const { Search } = Input;
 interface DashboardData {
   cows: number;
   medical: number;
@@ -378,7 +377,7 @@ const Dashboard = () => {
             </p>
           </div>
           <div className="grow"></div>
-          <Search placeholder="search" style={{ width: 200 }} />
+          {/* <Search placeholder="search" style={{ width: 200 }} /> */}
         </div>
 
         <div className="rounded-lg bg-white p-2 flex flex-row gap-4 items-center">
@@ -459,7 +458,7 @@ const Dashboard = () => {
             </div>
 
             <MedicalRequestCard
-              title="New Insemination Request"
+              title="New Medical Request"
               name={medicaldata.data?.farmer.name || "-"}
               cowname={medicaldata.data?.cow.cowname || "-"}
               status={medicaldata.data?.reason || "-"}
@@ -467,7 +466,9 @@ const Dashboard = () => {
                 <FluentShieldAdd48Filled className="text-blue-500 text-4xl" />
               }
               id={1}
-              link={`/dashboard/medical/${encryptURLData(medicaldata.data?.id.toString() || "1")}`}
+              link={`/dashboard/medical/${encryptURLData(
+                medicaldata.data?.id.toString() || "1"
+              )}`}
             />
             <CowCard
               title="New Cow Added"
@@ -478,7 +479,9 @@ const Dashboard = () => {
                 <IcBaselineAttractions className="text-blue-500 text-4xl" />
               }
               id={1}
-              link={`/dashboard/cows/${encryptURLData(cowdata.data?.id.toString() || "1")}`}
+              link={`/dashboard/cows/${encryptURLData(
+                cowdata.data?.id.toString() || "1"
+              )}`}
             />
             <FarmerCard
               title="Gauplak Profile Created"
@@ -489,7 +492,9 @@ const Dashboard = () => {
               icon={
                 <MaterialSymbolsPersonRounded className="text-blue-500 text-4xl" />
               }
-              link={`/dashboard/users/${encryptURLData(userdata.data?.id.toString() || "1")}`}
+              link={`/dashboard/users/${encryptURLData(
+                userdata.data?.id.toString() || "1"
+              )}`}
               id={1}
             />
           </div>
