@@ -12,7 +12,7 @@ import {
 } from "@/components/icons";
 import { ApiCall } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
-import { Select } from "antd";
+import { Select, Tooltip } from "antd";
 import { useState } from "react";
 
 import { ChartData, Chart as ChartJS, registerables } from "chart.js";
@@ -125,6 +125,50 @@ const Dashboard = () => {
     refetchOnWindowFocus: false,
   });
 
+  interface MonthData {
+    monthlyData: {
+      count: number;
+      month: string;
+    }[];
+  }
+
+  const chardata = useQuery({
+    queryKey: ["chartdata", year],
+    queryFn: async () => {
+      const response = await ApiCall({
+        query: `query TreatmentGraph($year: String!) {
+          treatmentGraph(year: $year) {
+            monthlyData {
+              count,
+              month
+            }  
+          }
+        }`,
+        variables: {
+          year: year.toString(),
+        },
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["treatmentGraph"]) {
+        throw new Error("Value not found in response");
+      }
+
+      return (response.data as Record<string, unknown>)[
+        "treatmentGraph"
+      ] as MonthData;
+    },
+  });
+
+  const maxValue = Math.max(
+    ...(chardata.data?.monthlyData.map((item) => item.count) || [0])
+  );
+  const yAxisMax = maxValue === 0 ? 10 : maxValue * 2;
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -133,6 +177,14 @@ const Dashboard = () => {
         barThickness: 10,
         categoryPercentage: 0.8,
         barPercentage: 0.9,
+        title: {
+          display: true,
+          text: "Month",
+          font: {
+            size: 14,
+            weight: "bold" as const,
+          },
+        },
         ticks: {
           font: {
             size: 12,
@@ -141,9 +193,25 @@ const Dashboard = () => {
         },
       },
       y: {
+        max: yAxisMax,
+        title: {
+          display: true,
+          text: "No. of Treatments",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
         ticks: {
           font: {
             size: 12,
+          },
+          precision: 0,
+          callback: function (tickValue: string | number) {
+            if (typeof tickValue === "number") {
+              return Math.round(tickValue);
+            }
+            return tickValue;
           },
         },
       },
@@ -188,45 +256,6 @@ const Dashboard = () => {
   const label = Array.from({ length: 12 }, (_, i) => {
     const month = new Date(0, i, 1); // start from January
     return month.toLocaleString("en-US", { month: "short" });
-  });
-
-  interface MonthData {
-    monthlyData: {
-      count: number;
-      month: string;
-    }[];
-  }
-
-  const chardata = useQuery({
-    queryKey: ["chartdata", year],
-    queryFn: async () => {
-      const response = await ApiCall({
-        query: `query TreatmentGraph($year: String!) {
-          treatmentGraph(year: $year) {
-            monthlyData {
-              count,
-              month
-            }  
-          }
-        }`,
-        variables: {
-          year: year.toString(),
-        },
-      });
-
-      if (!response.status) {
-        throw new Error(response.message);
-      }
-
-      // if value is not in response.data then return the error
-      if (!(response.data as Record<string, unknown>)["treatmentGraph"]) {
-        throw new Error("Value not found in response");
-      }
-
-      return (response.data as Record<string, unknown>)[
-        "treatmentGraph"
-      ] as MonthData;
-    },
   });
 
   // import { ChartData } from "chart.js";
@@ -391,58 +420,75 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2  items-center">
-          <div className="flex-1 rounded-md bg-white p-4">
-            <div className="flex">
-              <p className="text-sm">Total No. of Gaupalak</p>
-              <div className="grow"></div>
-              <IcOutlineInfo />
+          <Link href="/dashboard/users">
+            <div className="flex-1 rounded-md bg-white p-4">
+              <div className="flex">
+                <p className="text-sm">Total No. of Gaupalak</p>
+                <div className="grow"></div>
+                <Tooltip title="Total number of Gaupalak registered in the system">
+                  <IcOutlineInfo />
+                </Tooltip>
+              </div>
+              <div className="flex gap-2 items-center">
+                <MaterialSymbolsPersonRounded />
+                <p className="text-xl font-semibold">
+                  {dashboarddata.data?.user}
+                </p>
+              </div>
             </div>
-            <div className="flex gap-2 items-center">
-              <MaterialSymbolsPersonRounded />
-              <p className="text-xl font-semibold">
-                {dashboarddata.data?.user}
-              </p>
+          </Link>
+
+          <Link href="/dashboard/cows">
+            <div className="flex-1 rounded-md bg-white p-4">
+              <div className="flex">
+                <p className="text-sm">Total No. Cows</p>
+                <div className="grow"></div>
+                <Tooltip title="Total number of Cows registered in the system">
+                  <IcOutlineInfo />
+                </Tooltip>
+              </div>
+              <div className="flex gap-2 items-center">
+                <IcBaselineAttractions />
+                <p className="text-xl font-semibold">
+                  {dashboarddata.data?.cows}
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="flex-1 rounded-md bg-white p-4">
-            <div className="flex">
-              <p className="text-sm">Total No. Cows</p>
-              <div className="grow"></div>
-              <IcOutlineInfo />
+          </Link>
+          <Link href="/dashboard/marketplace">
+            <div className="flex-1 rounded-md bg-white p-4">
+              <div className="flex">
+                <p className="text-sm">Total No. of Vendors</p>
+                <div className="grow"></div>
+                <Tooltip title="Total number of Vendors registered in the system">
+                  <IcOutlineInfo />
+                </Tooltip>
+              </div>
+              <div className="flex gap-2 items-center">
+                <MaterialSymbolsPersonRounded />
+                <p className="text-xl font-semibold">
+                  {dashboarddata.data?.venders}
+                </p>
+              </div>
             </div>
-            <div className="flex gap-2 items-center">
-              <IcBaselineAttractions />
-              <p className="text-xl font-semibold">
-                {dashboarddata.data?.cows}
-              </p>
+          </Link>
+          <Link href="/dashboard/medical">
+            <div className="flex-1 rounded-md bg-white p-4">
+              <div className="flex">
+                <p className="text-sm">Pending Medical Request</p>
+                <div className="grow"></div>
+                <Tooltip title="Total number of Pending Medical Requests">
+                  <IcOutlineInfo />
+                </Tooltip>
+              </div>
+              <div className="flex gap-2 items-center">
+                <FluentDocumentBulletList16Regular />
+                <p className="text-xl font-semibold">
+                  {dashboarddata.data?.medical}
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="flex-1 rounded-md bg-white p-4">
-            <div className="flex">
-              <p className="text-sm">Total No. of Vendors</p>
-              <div className="grow"></div>
-              <IcOutlineInfo />
-            </div>
-            <div className="flex gap-2 items-center">
-              <MaterialSymbolsPersonRounded />
-              <p className="text-xl font-semibold">
-                {dashboarddata.data?.venders}
-              </p>
-            </div>
-          </div>
-          <div className="flex-1 rounded-md bg-white p-4">
-            <div className="flex">
-              <p className="text-sm">Pending Medical Request</p>
-              <div className="grow"></div>
-              <IcOutlineInfo />
-            </div>
-            <div className="flex gap-2 items-center">
-              <FluentDocumentBulletList16Regular />
-              <p className="text-xl font-semibold">
-                {dashboarddata.data?.medical}
-              </p>
-            </div>
-          </div>
+          </Link>
         </div>
 
         <div className="grid md:grid-cols-2 grid-cols-1  gap-2 items">

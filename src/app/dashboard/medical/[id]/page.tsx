@@ -123,10 +123,21 @@ const Medical = () => {
             Assign Doctor
           </button>
         )}
-
+        {medicaldata.data?.medicalStatus == "SCHEDULED" && (
+          <button
+            className="bg-rose-500 text-white px-4 py-1 h-8 rounded-md hover:bg-rose-600 transition-colors duration-200"
+            onClick={() => setOpen(true)}
+          >
+            Reassign Doctor
+          </button>
+        )}
         <Drawer
           size="large"
-          title="Assign Doctor"
+          title={
+            medicaldata.data?.medicalStatus === "SCHEDULED"
+              ? "Reassign Doctor"
+              : "Assign Doctor"
+          }
           onClose={() => setOpen(false)}
           open={open}
         >
