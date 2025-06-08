@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx"; // Importing XLSX from the correct path
 import { useQuery } from "@tanstack/react-query";
@@ -110,6 +109,7 @@ const ReportsPage = () => {
     }
 
     const formattedData = userdata.data.map((item) => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const formattedItem: Record<string, any> = {};
       Object.entries(item).forEach(([key, value]) => {
         if (value === null || value === undefined || value === "") {
@@ -143,6 +143,7 @@ const ReportsPage = () => {
 
     // Format dates to dd-mm-yyyy and replace empty/null/undefined with "NA"
     const formattedData = cowdata.data.map((item) => {
+      // eslint-disable-next-line  @typescript-eslint/no-explicit-any
       const formattedItem: Record<string, any> = {};
       Object.entries(item).forEach(([key, value]) => {
         if (key === "birthdate" || key === "death_date") {

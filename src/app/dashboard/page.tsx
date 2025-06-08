@@ -182,7 +182,7 @@ const Dashboard = () => {
           text: "Month",
           font: {
             size: 14,
-            weight: "bold" as const,
+            weight: 600,
           },
         },
         ticks: {
@@ -199,7 +199,7 @@ const Dashboard = () => {
           text: "No. of Treatments",
           font: {
             size: 14,
-            weight: "bold",
+            weight: 600,
           },
         },
         ticks: {
