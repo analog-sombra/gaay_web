@@ -6,7 +6,7 @@ import {
   MaterialSymbolsPersonRounded,
 } from "@/components/icons";
 import { ApiCall } from "@/services/api";
-import { encryptURLData, formatDateTime, formateDate } from "@/utils/methods";
+import { encryptURLData, formatDateTime } from "@/utils/methods";
 import { useQuery } from "@tanstack/react-query";
 import { Input, Pagination, Popover, Tooltip } from "antd";
 import { useRouter } from "next/navigation";
@@ -177,6 +177,7 @@ const Medical = () => {
   ];
 
   // Helper to get effective status for sorting
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const getEffectiveStatus = (medical: any) => {
     if (
       medical.medicalStatus === "SCHEDULED" &&

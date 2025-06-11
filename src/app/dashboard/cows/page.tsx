@@ -8,7 +8,7 @@ import {
 import { ApiCall } from "@/services/api";
 import { encryptURLData } from "@/utils/methods";
 import { useQuery } from "@tanstack/react-query";
-import { Input, Pagination, Popover, Tooltip } from "antd";
+import { Input, Pagination, Tooltip } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
