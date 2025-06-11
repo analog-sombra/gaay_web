@@ -1,8 +1,14 @@
 "use client";
+import {
+  FluentDocumentBulletList16Regular,
+  IcBaselineAttractions,
+  IcOutlineInfo,
+  MaterialSymbolsPersonRounded,
+} from "@/components/icons";
 import { ApiCall } from "@/services/api";
 import { encryptURLData } from "@/utils/methods";
 import { useQuery } from "@tanstack/react-query";
-import { Input, Pagination } from "antd";
+import { Input, Pagination, Tooltip } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -64,6 +70,40 @@ const Users = () => {
     },
   });
 
+  interface DashboardUserData {
+    iddp: number;
+    iddp_cow_count: number;
+    ssdu: number;
+    ssdu_cow_count: number;
+    total: number;
+    withcows: number;
+  }
+
+  const dashboarduserdata = useQuery({
+    queryKey: ["dashboarduserdata"],
+    queryFn: async () => {
+      const response = await ApiCall({
+        query:
+          "query DashboardUserReport {dashboardUserReport {iddp, iddp_cow_count, ssdu, ssdu_cow_count, total, withcows}}",
+        variables: {},
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["dashboardUserReport"]) {
+        throw new Error("Value not found in response");
+      }
+
+      return (response.data as Record<string, unknown>)[
+        "dashboardUserReport"
+      ] as DashboardUserData;
+    },
+    refetchOnWindowFocus: false,
+  });
+
   const onChange = (page: number, pagesize: number) => {
     setPaginatin({
       ...pagination,
@@ -95,6 +135,70 @@ const Users = () => {
             userdata.refetch();
           }}
         />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2  items-center mt-2">
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">IDDP/No of cows</p>
+            <div className="grow"></div>
+            <Tooltip title="IDDP/No of cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <MaterialSymbolsPersonRounded />
+            <p className="text-xl font-semibold">
+              {dashboarduserdata.data?.iddp}/
+              {dashboarduserdata.data?.iddp_cow_count}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">SSDU/No of cows</p>
+            <div className="grow"></div>
+            <Tooltip title="SSDU/No of cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <IcBaselineAttractions />
+            <p className="text-xl font-semibold">
+              {dashboarduserdata.data?.ssdu}/
+              {dashboarduserdata.data?.ssdu_cow_count}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total Users</p>
+            <div className="grow"></div>
+            <Tooltip title="Total number of Users">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <MaterialSymbolsPersonRounded />
+            <p className="text-xl font-semibold">
+              {dashboarduserdata.data?.total}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">User With Cows</p>
+            <div className="grow"></div>
+            <Tooltip title="Total number of Users With Cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <FluentDocumentBulletList16Regular />
+            <p className="text-xl font-semibold">
+              {dashboarduserdata.data?.withcows}
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="mt-2 p-4 bg-white rounded-md shadow-md">

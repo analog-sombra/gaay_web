@@ -8,6 +8,7 @@ import { ApiCall } from "@/services/api";
 import { toast } from "react-toastify";
 import { AddFarmerForm, AddFarmerSchema } from "@/schema/addfarmer";
 import { MultiSelect } from "../inputfields/multiselect";
+import { DateSelect } from "../inputfields/dateselect";
 
 const AddFarmerPage = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const AddFarmerPage = () => {
     mutationFn: async (data: AddFarmerForm) => {
       const response = await ApiCall({
         query:
-          "mutation CreateUser($createUserInput: CreateUserInput!) { createUser(createUserInput: $createUserInput) {id,name,role}}",
+          "mutation CreateUser($createUserInput: CreateUserInput!, $createUserLoanInput: CreateUserLoanInput!) { createUser(createUserInput: $createUserInput, createUserLoanInput: $createUserLoanInput) {id,name,role}}",
         variables: {
           createUserInput: {
             beneficiary_code: data.beneficiary_code,
@@ -40,6 +41,11 @@ const AddFarmerPage = () => {
             district: data.district,
             contact_two: data.contact_two,
             occupation: data.occupation,
+          },
+          createUserLoanInput: {
+            amount: data.amount,
+            emi_amount: data.emi_amount,
+            start_date: data.start_date,
           },
         },
       });
@@ -77,6 +83,9 @@ const AddFarmerPage = () => {
       district: data.district,
       contact_two: data.contact_two,
       occupation: data.occupation,
+      amount: data.amount,
+      emi_amount: data.emi_amount,
+      start_date: data.start_date,
     });
   };
 
@@ -175,6 +184,35 @@ const AddFarmerPage = () => {
             required={true}
             name="district"
             placeholder="Enter District Name"
+          />
+        </div>
+
+        <div className="mt-2">
+          <TextInput<AddFarmerForm>
+            title="Amount"
+            required={true}
+            name="amount"
+            onlynumber={true}
+            placeholder="Enter Amount"
+          />
+        </div>
+
+        <div className="mt-2">
+          <TextInput<AddFarmerForm>
+            title="EMI Amount"
+            required={true}
+            name="emi_amount"
+            onlynumber={true}
+            placeholder="Enter EMI Amount"
+          />
+        </div>
+
+        <div className="mt-2">
+          <DateSelect<AddFarmerForm>
+            title="Start Date"
+            required={true}
+            name="start_date"
+            placeholder="Enter Start Date"
           />
         </div>
 

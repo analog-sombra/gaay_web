@@ -1,8 +1,14 @@
 "use client";
+import {
+  FluentDocumentBulletList16Regular,
+  IcBaselineAttractions,
+  IcOutlineInfo,
+  MaterialSymbolsPersonRounded,
+} from "@/components/icons";
 import { ApiCall } from "@/services/api";
 import { encryptURLData } from "@/utils/methods";
 import { useQuery } from "@tanstack/react-query";
-import { Input, Pagination } from "antd";
+import { Input, Pagination, Popover, Tooltip } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -66,6 +72,42 @@ const Cows = () => {
     },
   });
 
+  interface DashboardCowData {
+    total: number;
+    alive: number;
+    dead: number;
+    sold: number;
+    heifer: number;
+    calf: number;
+    cow_alive: number;
+    cow_dead: number;
+  }
+
+  const dashboardcowdata = useQuery({
+    queryKey: ["dashboardcowdata"],
+    queryFn: async () => {
+      const response = await ApiCall({
+        query:
+          "query DashboardCowReport {dashboardCowReport {total, alive, dead, sold, heifer, calf, cow_alive, cow_dead }}",
+        variables: {},
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["dashboardCowReport"]) {
+        throw new Error("Value not found in response");
+      }
+
+      return (response.data as Record<string, unknown>)[
+        "dashboardCowReport"
+      ] as DashboardCowData;
+    },
+    refetchOnWindowFocus: false,
+  });
+
   const onChange = (page: number, pagesize: number) => {
     setPaginatin({
       ...pagination,
@@ -97,6 +139,128 @@ const Cows = () => {
             cowdata.refetch();
           }}
         />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2  items-center mt-2">
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total No of cows</p>
+            <div className="grow"></div>
+            <Tooltip title="Total No of cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <MaterialSymbolsPersonRounded />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.total}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total No of alive cows</p>
+            <div className="grow"></div>
+            <Tooltip title="Total No of alive cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <IcBaselineAttractions />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.alive}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total No of dead cows</p>
+            <div className="grow"></div>
+            <Tooltip title="Total number of dead cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <MaterialSymbolsPersonRounded />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.dead}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total No of sold cows</p>
+            <div className="grow"></div>
+            <Tooltip title="Total number of sold cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <FluentDocumentBulletList16Regular />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.sold}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total No of heifer cows</p>
+            <div className="grow"></div>
+            <Tooltip title="Total No of heifer cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <MaterialSymbolsPersonRounded />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.heifer}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total no of calf</p>
+            <div className="grow"></div>
+            <Tooltip title="Total no of calf">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <IcBaselineAttractions />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.calf}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total no of cow alive</p>
+            <div className="grow"></div>
+            <Tooltip title="Total number of alive cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <MaterialSymbolsPersonRounded />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.cow_alive}
+            </p>
+          </div>
+        </div>
+        <div className="flex-1 rounded-md bg-white p-4">
+          <div className="flex">
+            <p className="text-sm">Total no of cow dead</p>
+            <div className="grow"></div>
+            <Tooltip title="Total number of dead cows">
+              <IcOutlineInfo />
+            </Tooltip>
+          </div>
+          <div className="flex gap-2 items-center">
+            <FluentDocumentBulletList16Regular />
+            <p className="text-xl font-semibold">
+              {dashboardcowdata.data?.cow_dead}
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="mt-2 p-4 bg-white rounded-md shadow-md">

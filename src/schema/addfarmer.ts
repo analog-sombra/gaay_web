@@ -1,5 +1,6 @@
 import { BeneficiaryType } from "@/models/main";
 import { isContainSpace } from "@/utils/methods";
+import { start } from "repl";
 import {
   check,
   InferInput,
@@ -34,6 +35,9 @@ const AddFarmerSchema = object({
   district: pipe(string("Enter District Name")),
   beneficiary_type: enum_(BeneficiaryType, "Select Beneficiary Type"),
   cow_count: pipe(string("Enter Number of Cows")),
+  amount: pipe(string("Enter Amount")),
+  emi_amount: pipe(string("Enter EMI Amount")),
+  start_date: pipe(string("Enter Start Date")),
 });
 
 type AddFarmerForm = InferInput<typeof AddFarmerSchema>;
