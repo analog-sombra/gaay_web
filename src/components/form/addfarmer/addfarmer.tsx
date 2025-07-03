@@ -72,17 +72,6 @@ const AddFarmerPage = () => {
     },
   });
 
-  interface DashboardCowData {
-    total: number;
-    alive: number;
-    dead: number;
-    sold: number;
-    heifer: number;
-    calf: number;
-    cow_alive: number;
-    cow_dead: number;
-  }
-
   const usercodedata = useQuery({
     queryKey: ["usercodedata"],
     queryFn: async () => {
