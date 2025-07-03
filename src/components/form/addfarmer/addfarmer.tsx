@@ -3,12 +3,13 @@ import { valibotResolver } from "@hookform/resolvers/valibot";
 import { onFormError } from "@/utils/methods";
 import { TextInput } from "../inputfields/textinput";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ApiCall } from "@/services/api";
 import { toast } from "react-toastify";
 import { AddFarmerForm, AddFarmerSchema } from "@/schema/addfarmer";
 import { MultiSelect } from "../inputfields/multiselect";
 import { DateSelect } from "../inputfields/dateselect";
+import { useEffect } from "react";
 
 const AddFarmerPage = () => {
   const router = useRouter();
@@ -70,6 +71,50 @@ const AddFarmerPage = () => {
       toast.error(error.message);
     },
   });
+
+  interface DashboardCowData {
+    total: number;
+    alive: number;
+    dead: number;
+    sold: number;
+    heifer: number;
+    calf: number;
+    cow_alive: number;
+    cow_dead: number;
+  }
+
+  const usercodedata = useQuery({
+    queryKey: ["usercodedata"],
+    queryFn: async () => {
+      const response = await ApiCall({
+        query: "query Query {getUserCode}",
+        variables: {},
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["getUserCode"]) {
+        throw new Error("Value not found in response");
+      }
+
+      return (response.data as Record<string, unknown>)[
+        "getUserCode"
+      ] as string;
+    },
+
+    refetchOnWindowFocus: false,
+  });
+
+  console.log(usercodedata.data);
+
+  useEffect(() => {
+    if (usercodedata.data) {
+      methods.setValue("beneficiary_code", usercodedata.data);
+    }
+  }, [usercodedata.data, methods]);
 
   const onSubmit = async (data: AddFarmerForm) => {
     login.mutate({

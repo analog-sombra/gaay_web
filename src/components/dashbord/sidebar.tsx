@@ -8,10 +8,12 @@ import {
   FluentMdl2ViewDashboard,
   FluentShieldAdd48Filled,
   IcBaselineAttractions,
+  MaterialSymbolsLogout,
   MaterialSymbolsPersonRounded,
 } from "../icons";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next/client";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -21,6 +23,7 @@ interface SidebarProps {
 
 const Sidebar = (props: SidebarProps) => {
   const path = usePathname();
+  const router = useRouter();
 
   return (
     <>
@@ -117,17 +120,20 @@ const Sidebar = (props: SidebarProps) => {
               </div>
             }
           />
-          {/* <MenuTab
-            name="Notifications"
-            path={path}
-            pathcheck="#"
-            click={() => props.setIsOpen(false)}
+          <LogoutTab
+            name="Logout"
+            click={() => {
+              props.setIsOpen(false);
+              deleteCookie("id");
+              deleteCookie("role");
+              router.push("/login");
+            }}
             icon={
               <div className="bg-[#f3f6f8] rounded-lg">
-                <SolarBellBold className="text-blue-500 w-6 h-6 p-1" />
+                <MaterialSymbolsLogout className="text-blue-500 w-6 h-6 p-1" />
               </div>
             }
-          /> */}
+          />
         </div>
         <div className="w-[1px] bg-gray-400 my-10"></div>
       </div>
@@ -166,5 +172,23 @@ const MenuTab = (props: MenuTabProps) => {
         {props.name}
       </p>
     </Link>
+  );
+};
+
+interface LogoutTabProps {
+  click: () => void;
+  name: string;
+  icon: React.ReactNode;
+}
+
+const LogoutTab = (props: LogoutTabProps) => {
+  return (
+    <button
+      onClick={props.click}
+      className={`mx-auto p-1 rounded-lg  flex gap-2 items-center my-2 border-2 border-gray-300 w-full`}
+    >
+      {props.icon}
+      <p className={`text-lg text-black font-normal`}>{props.name}</p>
+    </button>
   );
 };
