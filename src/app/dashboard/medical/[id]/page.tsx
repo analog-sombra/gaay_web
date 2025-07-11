@@ -33,6 +33,8 @@ interface MedicalResponse {
     id: number;
     name: string;
     contact: string;
+    beneficiary_code: string;
+    address: string;
   };
   doctor: {
     id: number;
@@ -72,7 +74,7 @@ const Medical = () => {
     queryFn: async () => {
       const response = await ApiCall({
         query:
-          "query GetMedicalRequestById($id:Int!){getMedicalRequestById (id:$id){ id, type, remarks, reason, date, follow_up_treatment, follow_up_date, scheduled_date, complaint_no, medicalStatus, treatment_provided, farmer { name, contact, id },  doctor { id, name, contact }, cow { id, farmerid, alias, cowname, cowstatus, breed { name },  photocover, sex, birthdate, cowtagno, noofcalves, weight, daily_milk_produce}}}",
+          "query GetMedicalRequestById($id:Int!){getMedicalRequestById (id:$id){ id, type, remarks, reason, date, follow_up_treatment, follow_up_date, scheduled_date, complaint_no, medicalStatus, treatment_provided, farmer { name, contact, id, beneficiary_code, address },  doctor { id, name, contact }, cow { id, farmerid, alias, cowname, cowstatus, breed { name },  photocover, sex, birthdate, cowtagno, noofcalves, weight, daily_milk_produce}}}",
         variables: {
           id: medicalid,
         },
@@ -241,6 +243,20 @@ const Medical = () => {
           </p>
           <p className="text-sm text-black leading-5 font-semibold">
             {formateDate(new Date(medicaldata.data?.cow.birthdate ?? ""))}
+          </p>
+        </div>
+        <div className="bg-gray-100 rounded-md py-2 px-4">
+          <p className="text-sm font-normal text-gray-500 leading-3">
+            Beneficial Code
+          </p>
+          <p className="text-sm text-black leading-5 font-semibold">
+            {medicaldata.data?.farmer.beneficiary_code ?? "N/A"}
+          </p>
+        </div>
+        <div className="bg-gray-100 rounded-md py-2 px-4">
+          <p className="text-sm font-normal text-gray-500 leading-3">Address</p>
+          <p className="text-sm text-black leading-5 font-semibold">
+            {medicaldata.data?.farmer.address ?? "N/A"}
           </p>
         </div>
       </div>

@@ -42,6 +42,7 @@ const AddFarmerPage = () => {
             district: data.district,
             contact_two: data.contact_two,
             occupation: data.occupation,
+            alias: data.alias,
           },
           createUserLoanInput: {
             amount: data.amount,
@@ -120,6 +121,7 @@ const AddFarmerPage = () => {
       amount: data.amount,
       emi_amount: data.emi_amount,
       start_date: data.start_date,
+      alias: data.alias,
     });
   };
 
@@ -132,6 +134,14 @@ const AddFarmerPage = () => {
             required={true}
             name="name"
             placeholder="Enter Farmer Name"
+          />
+        </div>
+        <div className="mt-2">
+          <TextInput<AddFarmerForm>
+            title="Alias"
+            required={true}
+            name="alias"
+            placeholder="Enter Alias"
           />
         </div>
 

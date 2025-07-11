@@ -1,11 +1,15 @@
 "use client";
 import { IcBaselineArrowBack } from "@/components/icons";
 import { ApiCall } from "@/services/api";
+import { useStart } from "@/services/start";
 import { baseurl } from "@/utils/const";
 import { decryptURLData } from "@/utils/methods";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Modal } from "antd";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface UsersResponse {
   id: number;
@@ -28,6 +32,40 @@ const User = () => {
   const { id } = useParams<{ id: string | string[] }>();
   const idString = Array.isArray(id) ? id[0] : id;
   const userid: number = parseInt(decryptURLData(idString, router));
+
+  const [deleteBox, setDeleteBox] = useState<boolean>(false);
+
+  const deleteuser = useMutation({
+    mutationKey: ["deleteuser"],
+    mutationFn: async (userId: number) => {
+      const response = await ApiCall({
+        query: "mutation DeleteUser($id: Int!) { deleteUser(id: $id) { id } }",
+        variables: {
+          id: userId,
+        },
+      });
+
+      if (!response.status) {
+        throw new Error(response.message);
+      }
+
+      // if value is not in response.data then return the error
+      if (!(response.data as Record<string, unknown>)["deleteUser"]) {
+        throw new Error("Value not found in response");
+      }
+      return (response.data as Record<string, unknown>)["deleteUser"] as {
+        id: number;
+      };
+    },
+
+    onError: (error: Error) => {
+      toast.error("Failed to delete user: " + error.message);
+    },
+    onSuccess: () => {
+      toast.success("User deleted successfully");
+      router.push("/dashboard/users");
+    },
+  });
 
   const userdata = useQuery({
     queryKey: ["getuserbyid"],
@@ -76,6 +114,29 @@ const User = () => {
           User Data
         </h1>
         <div className="grow"></div>
+        <button
+          className="bg-red-500 text-white text-sm rounded-lg px-4 py-1"
+          // onClick={() => deleteuser.mutate(userid)}
+          onClick={() => setDeleteBox(true)}
+        >
+          Delete User
+        </button>
+
+        <Modal
+          title="Delete User"
+          closable={{ "aria-label": "Custom Close Button" }}
+          open={deleteBox}
+          onOk={() => {
+            deleteuser.mutate(userid);
+            setDeleteBox(false);
+          }}
+          onCancel={() => setDeleteBox(false)}
+        >
+          <p className="text-gray-700">
+            Are you sure you want to delete this user? This action cannot be
+            undone.
+          </p>
+        </Modal>
       </div>
 
       <div className="mt-2 p-4 bg-white rounded-md shadow-md grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">

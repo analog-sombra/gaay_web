@@ -12,7 +12,8 @@ import {
 } from "valibot";
 
 const AddStaffSchema = object({
-  name: pipe(string("Enter Farmer Name")),
+  alias: pipe(string("Enter alias")),
+  name: pipe(string("Enter Staff Name")),
   contact: pipe(
     string(),
     minLength(10, "Mobile number should be 10 digits."),

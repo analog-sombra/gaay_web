@@ -152,6 +152,14 @@ const Medical = () => {
       );
     }
 
+    if (status === "INPROGRESS") {
+      return (
+        <p className="text-blue-500 bg-blue-500/20 border-blue-500 rounded px-2 border text-center">
+          {status}
+        </p>
+      );
+    }
+
     if (
       status === "SCHEDULED" ||
       status === "CANCELLED" ||
@@ -347,10 +355,12 @@ const Medical = () => {
                   <td className="border border-gray-300 px-4 py-2 font-normal text-sm">
                     {/* {medical.medicalStatus} */}
 
-                    {medical.medicalStatus == "SCHEDULED"
+                    {medical.medicalStatus === "SCHEDULED"
                       ? medical.scheduled_date <
                         today.toISOString().split("T")[0]
                         ? getStatus("LATE")
+                        : medical.scheduled_date === today.toISOString().split("T")[0]
+                        ? getStatus("INPROGRESS")
                         : getStatus("SCHEDULED")
                       : getStatus(medical.medicalStatus)}
                   </td>

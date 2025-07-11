@@ -36,6 +36,7 @@ const AddStaffPage = () => {
             district: data.district,
             contact_two: data.contact_two,
             role: data.role,
+            alias: data.alias,
           },
         },
       });
@@ -70,6 +71,7 @@ const AddStaffPage = () => {
       district: data.district,
       contact_two: data.contact_two,
       role: data.role,
+      alias: data.alias,
     });
   };
 
@@ -82,6 +84,14 @@ const AddStaffPage = () => {
             required={true}
             name="name"
             placeholder="Enter Name"
+          />
+        </div>
+        <div className="mt-2">
+          <TextInput<AddStaffForm>
+            title="Alias"
+            required={true}
+            name="alias"
+            placeholder="Enter Alias"
           />
         </div>
 

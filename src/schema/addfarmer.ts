@@ -12,6 +12,7 @@ import {
 } from "valibot";
 
 const AddFarmerSchema = object({
+  alias: pipe(string("Enter alias")),
   name: pipe(string("Enter Farmer Name")),
   beneficiary_code: pipe(string("Enter Beneficiary Code")),
   contact: pipe(

@@ -48,7 +48,7 @@ const MarketPlace = () => {
   }
 
   const userdata = useQuery({
-    queryKey: ["user", pagination.skip, pagination.take, search],
+    queryKey: ["user", pagination.skip, pagination.take, search, role],
     refetchOnWindowFocus: false,
     queryFn: async () => {
       const response = await ApiCall({
@@ -84,7 +84,7 @@ const MarketPlace = () => {
       skip: pagesize * (page - 1),
       take: pagesize,
     });
-    userdata.refetch();
+    // userdata.refetch();
   };
   return (
     <div className="p-6">
@@ -100,7 +100,7 @@ const MarketPlace = () => {
               take: pagination.take,
             });
             setRole(val.target.value);
-            userdata.refetch();
+            // userdata.refetch();
           }}
           value={role}
           optionType="button"
