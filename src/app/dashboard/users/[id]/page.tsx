@@ -1,7 +1,6 @@
 "use client";
 import { IcBaselineArrowBack } from "@/components/icons";
 import { ApiCall } from "@/services/api";
-import { useStart } from "@/services/start";
 import { baseurl } from "@/utils/const";
 import { decryptURLData } from "@/utils/methods";
 import { useMutation, useQuery } from "@tanstack/react-query";
